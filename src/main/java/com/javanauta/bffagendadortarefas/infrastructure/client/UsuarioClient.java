@@ -1,57 +1,60 @@
 package com.javanauta.bffagendadortarefas.infrastructure.client;
 
 
-import com.javanauta.bffagendadortarefas.business.dto.EnderecoDTO;
-import com.javanauta.bffagendadortarefas.business.dto.TelefoneDTO;
-import com.javanauta.bffagendadortarefas.business.dto.UsuarioDTO;
+import com.javanauta.bffagendadortarefas.business.dto.in.EnderecoDTOResquest;
+import com.javanauta.bffagendadortarefas.business.dto.in.LoginRequestDTO;
+import com.javanauta.bffagendadortarefas.business.dto.in.TelefoneDTORequest;
+import com.javanauta.bffagendadortarefas.business.dto.in.UsuarioDTORequest;
+import com.javanauta.bffagendadortarefas.business.dto.out.EnderecoDTOResponse;
+import com.javanauta.bffagendadortarefas.business.dto.out.TelefoneDTOResponse;
+import com.javanauta.bffagendadortarefas.business.dto.out.UsuarioDTOResponse;
 import org.springframework.cloud.openfeign.FeignClient;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @FeignClient(name = "usuario", url = "${usuario.url}")
 public interface UsuarioClient {
 
     @GetMapping
-    UsuarioDTO buscaUsuarioPorEmail(@RequestParam("email") String email,
-                                    @RequestHeader("Authorization") String token);
+    UsuarioDTOResponse buscaUsuarioPorEmail(@RequestParam("email") String email,
+                                            @RequestHeader(value = "Authorization", required=false) String token );
 
     @PostMapping
-    UsuarioDTO salvaUsuario(@RequestBody UsuarioDTO usuarioDTO);
+    UsuarioDTOResponse salvaUsuario(@RequestBody UsuarioDTORequest usuarioDTO);
 
 
     @PostMapping("/login")
-    String login(@RequestBody UsuarioDTO usuarioDTO);
+    String login(@RequestBody LoginRequestDTO usuarioDTO);
 
 
     @DeleteMapping("/{email}")
     void deletaUsuarioPorEmail(@PathVariable String email,
-                               @RequestHeader("Authorization") String token);
+                               @RequestHeader(value = "Authorization", required=false) String token );
 
     @PutMapping
-    UsuarioDTO atualizDadoUsuario(@RequestBody UsuarioDTO dto,
-                                  @RequestHeader("Authorization") String token);
+    UsuarioDTOResponse atualizDadoUsuario(@RequestBody UsuarioDTORequest dto,
+                                          @RequestHeader(value = "Authorization", required=false) String token );
 
 
     @PutMapping("/endereco")
-    EnderecoDTO atualizaEndereco(@RequestBody EnderecoDTO dto,
-                                 @RequestParam("id") Long id,
-                                 @RequestHeader("Authorization") String token);
+    EnderecoDTOResponse atualizaEndereco(@RequestBody EnderecoDTOResquest dto,
+                                         @RequestParam("id") Long id,
+                                         @RequestHeader(value = "Authorization", required=false) String token);
 
 
     @PutMapping("/telefone")
-    TelefoneDTO atualizaTelefone(@RequestBody TelefoneDTO dto,
-                                 @RequestParam("id") Long id,
-                                 @RequestHeader("Authorization") String token);
+    TelefoneDTOResponse atualizaTelefone(@RequestBody TelefoneDTORequest dto,
+                                         @RequestParam("id") Long id,
+                                         @RequestHeader(value = "Authorization", required=false) String token );
 
 
     @PostMapping("/endereco")
-    EnderecoDTO cadastaEndereco(@RequestBody EnderecoDTO dto,
-                                @RequestHeader("Authorization") String token);
+    EnderecoDTOResponse cadastaEndereco(@RequestBody EnderecoDTOResquest dto,
+                                        @RequestHeader(value = "Authorization", required=false) String token );
 
 
     @PostMapping("/telefone")
-    TelefoneDTO cadastraTelefone(@RequestBody TelefoneDTO dto,
-                                 @RequestHeader("Authorization") String token);
+    TelefoneDTOResponse cadastraTelefone(@RequestBody TelefoneDTORequest dto,
+                                         @RequestHeader(value = "Authorization", required=false) String token);
 
 
 }
