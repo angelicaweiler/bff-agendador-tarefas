@@ -27,8 +27,8 @@ public class CronService {
     @Value("${usuario.senha}")
     private String senha;
 
-
-    @Scheduled(cron = "${cron.horario}")
+//
+//    @Scheduled(cron = "${cron.horario}")
     public void buscaTarefasProximaHora(){
         String token = login(converterParaRequestDTO());
         log.info("Iniciada a busca de tarefas");

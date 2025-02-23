@@ -7,6 +7,7 @@ import com.javanauta.bffagendadortarefas.business.dto.in.UsuarioDTORequest;
 import com.javanauta.bffagendadortarefas.business.dto.out.EnderecoDTOResponse;
 import com.javanauta.bffagendadortarefas.business.dto.out.TelefoneDTOResponse;
 import com.javanauta.bffagendadortarefas.business.dto.out.UsuarioDTOResponse;
+import com.javanauta.bffagendadortarefas.business.dto.out.ViaCepDTOResponse;
 import com.javanauta.bffagendadortarefas.infrastructure.client.UsuarioClient;
 
 import lombok.RequiredArgsConstructor;
@@ -24,7 +25,7 @@ public class UsuarioService {
         return client.salvaUsuario(usuarioDTO);
     }
 
-    public String loginUsuario(LoginRequestDTO dto){
+    public String loginUsuario(LoginRequestDTO dto) {
         return client.login(dto);
     }
 
@@ -33,37 +34,40 @@ public class UsuarioService {
     }
 
 
-    public void deletaUsuarioPorEmail(String email, String token){
+    public void deletaUsuarioPorEmail(String email, String token) {
 
         client.deletaUsuarioPorEmail(email, token);
     }
 
-    public UsuarioDTOResponse atualizaDadosUsuario(String token, UsuarioDTORequest dto){
+    public UsuarioDTOResponse atualizaDadosUsuario(String token, UsuarioDTORequest dto) {
         return client.atualizDadoUsuario(dto, token);
     }
 
     public EnderecoDTOResponse atualizaEndereco(Long idEndereco, EnderecoDTOResquest enderecoDTO,
-                                                String token){
+                                                String token) {
 
-       return client.atualizaEndereco(enderecoDTO, idEndereco, token);
+        return client.atualizaEndereco(enderecoDTO, idEndereco, token);
 
     }
 
-    public TelefoneDTOResponse atualizaTelefone(Long idTelefone, TelefoneDTORequest dto, String token){
+    public TelefoneDTOResponse atualizaTelefone(Long idTelefone, TelefoneDTORequest dto, String token) {
 
         return client.atualizaTelefone(dto, idTelefone, token);
 
     }
 
-    public EnderecoDTOResponse cadastraEndereco(String token, EnderecoDTOResquest dto){
+    public EnderecoDTOResponse cadastraEndereco(String token, EnderecoDTOResquest dto) {
 
         return client.cadastaEndereco(dto, token);
     }
 
-    public TelefoneDTOResponse cadastraTelefone(String token, TelefoneDTORequest dto){
+    public TelefoneDTOResponse cadastraTelefone(String token, TelefoneDTORequest dto) {
 
-         return client.cadastraTelefone(dto,token);
+        return client.cadastraTelefone(dto, token);
     }
 
+    public ViaCepDTOResponse buscarEnderecoPorCep(String cep) {
+            return client.buscarDadosCep(cep);
+    }
 
 }
