@@ -2,7 +2,7 @@ version: '3.8'
 
 services:
   agendador-tarefas:
-    build: ../agendador-tarefas
+    build: ..\agendador-tarefas
     container_name: agendador-tarefas
     ports:
       - "8081:8081"
@@ -22,7 +22,7 @@ services:
       - NOTIFICACAO_URL=notificacao:8082/email
 
   usuario:
-    build: ../usuario
+    build: ..\usuario
     container_name: usuario
     ports:
       - "8080:8080"
@@ -34,7 +34,7 @@ services:
       - postgres
 
   notificacao:
-    build: ../notificacao
+    build: ..\notificacao
     container_name: notificacao
     ports:
       - "8084:8084"
