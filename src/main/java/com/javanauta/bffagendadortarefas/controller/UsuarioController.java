@@ -43,8 +43,8 @@ public class UsuarioController {
     @ApiResponse(responseCode = "200", description = "Usuário logado com sucesso")
     @ApiResponse(responseCode = "401", description = "Credenciais inválidas")
     @ApiResponse(responseCode = "500", description = "Erro de servidor")
-    public String login(@RequestBody LoginRequestDTO usuarioDTO) {
-        return usuarioService.loginUsuario(usuarioDTO);
+    public ResponseEntity<String> login(@RequestBody LoginRequestDTO usuarioDTO) {
+        return ResponseEntity.ok(usuarioService.loginUsuario(usuarioDTO));
     }
 
     @GetMapping
