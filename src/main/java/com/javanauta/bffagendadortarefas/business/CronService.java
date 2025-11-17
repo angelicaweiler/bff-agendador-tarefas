@@ -6,7 +6,6 @@ import com.javanauta.bffagendadortarefas.business.enums.StatusNotificacaoEnum;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -32,10 +31,13 @@ public class CronService {
     public void buscaTarefasProximaHora(){
         String token = login(converterParaRequestDTO());
         log.info("Iniciada a busca de tarefas");
+        LocalDateTime horaAtual = LocalDateTime.now(); //LocalDateTime.now (hora atual) plus
         LocalDateTime horaFutura = LocalDateTime.now().plusHours(1);
-        LocalDateTime horaFuturaMaisCinco = LocalDateTime.now().plusHours(1).plusMinutes(5);
+        //Qualquer tarefa que fique entre hora atual - e a hora futura + 1
+        // Se agora é 22h - qualquer tarefa entre 22h e 23h
+        // Se agora é 22h - qualquer tarefa entre 23h e 23h05 -- antes
 
-        List<TarefasDTOResponse> listaTarefas = tarefasService.buscaTarefasAgendadasPorPeriodo(horaFutura, horaFuturaMaisCinco, token);
+        List<TarefasDTOResponse> listaTarefas = tarefasService.buscaTarefasAgendadasPorPeriodo(horaAtual, horaFutura, token);
         log.info("Tarefas encontradas " + listaTarefas);
         listaTarefas.forEach(tarefa -> {
             emailService.enviaEmail(tarefa);
