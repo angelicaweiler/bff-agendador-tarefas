@@ -8,6 +8,7 @@ services:
       - "8081:8081"
     environment:
       - SPRING_DATA_MONGODB_URI=mongodb://mongo:27017/db_agendador
+      - USUARIO_URL=usuario:8080
     depends_on:
       - mongo
 
