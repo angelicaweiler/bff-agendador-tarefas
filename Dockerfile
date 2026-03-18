@@ -3,8 +3,8 @@ WORKDIR /app
 COPY . .
 RUN mvn clean install -DskipTests
 
-FROM eclipse-temurin:17-jdk-alpine
+FROM eclipse-temurin:17-jdk
 WORKDIR /app
-COPY --from=build /app/target/*.jar /app/bff-agendador-tarefas.jar
+COPY --from=build /app/target/bff-agendador-tarefas-0.0.1-SNAPSHOT.jar app.jar
 EXPOSE 8083
-CMD ["java", "-jar", "/app/bff-agendador-tarefas.jar"]
+CMD ["java", "-jar", "app.jar"]
